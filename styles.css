@@ -19,6 +19,17 @@ h1 {
 p {
   font-size: 1.2rem;
   margin: 15px 0;
+  color: #fff;
+}
+
+input[type="time"] {
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid #ff6699;
+  border-radius: 5px;
+  margin-top: 15px;
+  outline: none;
+  text-align: center;
 }
 
 button {
@@ -30,6 +41,7 @@ button {
   border-radius: 5px;
   cursor: pointer;
   transition: transform 0.2s ease, background-color 0.3s ease;
+  margin-top: 20px;
 }
 
 button:hover {
@@ -50,18 +62,6 @@ img {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.captcha-images img {
-  width: 150px;
-  margin: 10px;
-  cursor: pointer;
-  border: 3px solid transparent;
-  transition: border-color 0.2s ease;
-}
-
-.captcha-images img:hover {
-  border: 3px solid #ff4081;
 }
 
 .animated-image {
