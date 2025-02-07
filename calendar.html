@@ -5,6 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kalender</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .restaurant-option {
+      margin: 15px 0;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .restaurant-option img {
+      max-width: 100px;
+      margin-right: 15px;
+      border-radius: 8px;
+    }
+
+    .restaurant-option p {
+      font-size: 1.2rem;
+    }
+
+    #submit {
+      margin-top: 20px;
+    }
+
+    #imessage-link {
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
   <div class="calendar rainbow-bg">
@@ -13,18 +39,43 @@
     <p>Der Tag ist schon festgelegt. Wähle deine Wunschzeit ab 20 Uhr: </p>
     <input type="time" id="time" min="20:00" max="23:59" step="900">
     
-    <!-- Restaurant Auswahl als Liste -->
     <div id="restaurant-selection" style="display: none; margin-top: 20px;">
       <p>Wähle ein Restaurant oder eine Bar aus:</p>
-      <ul id="restaurant-list">
-        <li><a href="https://www.google.com/maps/place/Restaurant+1" target="_blank">Restaurant 1 (Link zu Google Maps)</a></li>
-        <li><a href="https://www.google.com/maps/place/Restaurant+2" target="_blank">Restaurant 2 (Link zu Google Maps)</a></li>
-        <li><a href="https://www.google.com/maps/place/Restaurant+3" target="_blank">Restaurant 3 (Link zu Google Maps)</a></li>
-        <li><a href="https://www.google.com/maps/place/Restaurant+4" target="_blank">Restaurant 4 (Link zu Google Maps)</a></li>
-        <li><a href="https://www.google.com/maps/place/Restaurant+5" target="_blank">Restaurant 5 (Link zu Google Maps)</a></li>
-        <li><a href="https://www.google.com/maps/place/Restaurant+6" target="_blank">Restaurant 6 (Link zu Google Maps)</a></li>
-        <li><a href="https://www.google.com/maps/place/Restaurant+7" target="_blank">Restaurant 7 (Link zu Google Maps)</a></li>
-      </ul>
+
+      <div class="restaurant-option" data-restaurant="Restaurant 1" data-link="https://maps.app.goo.gl/EuNw9AxWCQeNnNmAA?g_st=com.google.maps.preview.copy">
+        <img src="restaurant-image-placeholder.jpg" alt="Restaurant 1">
+        <p>Restaurant 1</p>
+      </div>
+
+      <div class="restaurant-option" data-restaurant="Restaurant 2" data-link="https://maps.app.goo.gl/ExampleLink2">
+        <img src="restaurant-image-placeholder2.jpg" alt="Restaurant 2">
+        <p>Restaurant 2</p>
+      </div>
+
+      <div class="restaurant-option" data-restaurant="Restaurant 3" data-link="https://maps.app.goo.gl/ExampleLink3">
+        <img src="restaurant-image-placeholder3.jpg" alt="Restaurant 3">
+        <p>Restaurant 3</p>
+      </div>
+
+      <div class="restaurant-option" data-restaurant="Restaurant 4" data-link="https://maps.app.goo.gl/ExampleLink4">
+        <img src="restaurant-image-placeholder4.jpg" alt="Restaurant 4">
+        <p>Restaurant 4</p>
+      </div>
+
+      <div class="restaurant-option" data-restaurant="Restaurant 5" data-link="https://maps.app.goo.gl/ExampleLink5">
+        <img src="restaurant-image-placeholder5.jpg" alt="Restaurant 5">
+        <p>Restaurant 5</p>
+      </div>
+
+      <div class="restaurant-option" data-restaurant="Restaurant 6" data-link="https://maps.app.goo.gl/ExampleLink6">
+        <img src="restaurant-image-placeholder6.jpg" alt="Restaurant 6">
+        <p>Restaurant 6</p>
+      </div>
+
+      <div class="restaurant-option" data-restaurant="Restaurant 7" data-link="https://maps.app.goo.gl/ExampleLink7">
+        <img src="restaurant-image-placeholder7.jpg" alt="Restaurant 7">
+        <p>Restaurant 7</p>
+      </div>
     </div>
     
     <button id="submit" style="display: none; margin-top: 20px;">Sende mir eine iMessage</button>
@@ -37,19 +88,30 @@
     const submitButton = document.getElementById("submit");
     const imessageLinkContainer = document.getElementById("imessage-link");
 
+    let selectedRestaurant = null;
+
     timeInput.addEventListener("change", () => {
       if (timeInput.value) {
         restaurantSelectionDiv.style.display = "block"; // Zeigt die Restaurant-Auswahl an
       }
     });
 
+    // Event Listener für Restaurant-Auswahl
+    const restaurantOptions = document.querySelectorAll(".restaurant-option");
+    restaurantOptions.forEach(option => {
+      option.addEventListener("click", () => {
+        // Markiere die Auswahl
+        restaurantOptions.forEach(opt => opt.classList.remove("selected"));
+        option.classList.add("selected");
+        selectedRestaurant = option.getAttribute("data-restaurant");
+      });
+    });
+
     submitButton.addEventListener("click", () => {
       const time = timeInput.value;
-      const selectedRestaurant = document.querySelector("#restaurant-list a:focus");
       
       if (time && selectedRestaurant) {
-        const restaurantName = selectedRestaurant.textContent.split(' (')[0]; // Extrahiert den Namen des Restaurants
-        const messageText = `Hey! Ich habe unseren Termin um ${time} im ${restaurantName} bestätigt. Freu mich auf dich! 😍`;
+        const messageText = `Hey! Ich habe unseren Termin um ${time} im ${selectedRestaurant} bestätigt. Freu mich auf dich! 😍`;
         const iMessageLink = `sms:+4915737365084&body=${encodeURIComponent(messageText)}`;
 
         const linkElement = document.createElement("a");
