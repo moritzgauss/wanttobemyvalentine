@@ -18,36 +18,56 @@
 
     <div id="restaurant-selection">
       <p>🏙 Wähle dein Ziel:</p>
-      <ul>
-        <li><a href="https://maps.app.goo.gl/XYZ1" target="_blank">★ Restaurant A</a></li>
-        <li><a href="https://maps.app.goo.gl/XYZ2" target="_blank">☆ Restaurant B</a></li>
-        <li><a href="https://maps.app.goo.gl/XYZ3" target="_blank">★ Restaurant C</a></li>
-        <li><a href="https://maps.app.goo.gl/XYZ4" target="_blank">☆ Restaurant D</a></li>
-        <li><a href="https://maps.app.goo.gl/XYZ5" target="_blank">★ Restaurant E</a></li>
-        <li><a href="https://maps.app.goo.gl/XYZ6" target="_blank">☆ Restaurant F</a></li>
-        <li><a href="https://maps.app.goo.gl/XYZ7" target="_blank">★ Restaurant G</a></li>
+      <ul id="restaurant-list">
+        <li data-restaurant="Restaurant A" data-link="https://maps.app.goo.gl/XYZ1">★ Restaurant A</li>
+        <li data-restaurant="Restaurant B" data-link="https://maps.app.goo.gl/XYZ2">☆ Restaurant B</li>
+        <li data-restaurant="Restaurant C" data-link="https://maps.app.goo.gl/XYZ3">★ Restaurant C</li>
+        <li data-restaurant="Restaurant D" data-link="https://maps.app.goo.gl/XYZ4">☆ Restaurant D</li>
+        <li data-restaurant="Restaurant E" data-link="https://maps.app.goo.gl/XYZ5">★ Restaurant E</li>
+        <li data-restaurant="Restaurant F" data-link="https://maps.app.goo.gl/XYZ6">☆ Restaurant F</li>
+        <li data-restaurant="Restaurant G" data-link="https://maps.app.goo.gl/XYZ7">★ Restaurant G</li>
       </ul>
     </div>
 
-    <button id="submit">📩 Sende mir eine iMessage</button>
+    <button id="submit" style="display:none;">📩 Sende mir eine iMessage</button>
     <p id="imessage-link"></p>
   </div>
 
   <script>
     const timeInput = document.getElementById("time");
+    const restaurantList = document.getElementById("restaurant-list");
     const submitButton = document.getElementById("submit");
     const imessageLinkContainer = document.getElementById("imessage-link");
 
     let selectedTime = null;
+    let selectedRestaurant = null;
+    let selectedLink = null;
 
     timeInput.addEventListener("change", () => {
       selectedTime = timeInput.value;
-      submitButton.style.display = "inline-block";
+      checkReady();
     });
 
+    restaurantList.addEventListener("click", (event) => {
+      if (event.target.tagName === "LI") {
+        document.querySelectorAll("#restaurant-list li").forEach(li => li.style.fontWeight = "normal");
+        event.target.style.fontWeight = "bold";
+
+        selectedRestaurant = event.target.getAttribute("data-restaurant");
+        selectedLink = event.target.getAttribute("data-link");
+        checkReady();
+      }
+    });
+
+    function checkReady() {
+      if (selectedTime && selectedRestaurant) {
+        submitButton.style.display = "inline-block";
+      }
+    }
+
     submitButton.addEventListener("click", () => {
-      if (selectedTime) {
-        const messageText = `Hey! Ich habe unseren Termin um ${selectedTime} bestätigt. Freu mich auf dich! ♥`;
+      if (selectedTime && selectedRestaurant && selectedLink) {
+        const messageText = `Hey! Ich habe unseren Termin um ${selectedTime} im ${selectedRestaurant} bestätigt. Hier ist der Link: ${selectedLink} – Freu mich auf dich! ♥`;
         const iMessageLink = `sms:+4915737365084&body=${encodeURIComponent(messageText)}`;
 
         imessageLinkContainer.innerHTML = `<a href="${iMessageLink}" style="display: inline-block; color: white; text-decoration: underline;">✅ iMessage senden</a>`;
