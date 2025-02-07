@@ -3,97 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kalender</title>
+  <title>✦★✦ Dein Treffpunkt ✦★✦</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="calendar rainbow-bg">
-    <h1>🎉 Termin auswählen</h1>
-    <img src="your-animated-picture-placeholder.gif" alt="Animiertes Bild von uns" class="animated-image">
-    <p>Der Tag ist schon festgelegt. Wähle deine Wunschzeit ab 20 Uhr: </p>
+    <pre style="text-align:center; font-size:14px;">
+        ☆.｡.:*･ﾟ✧ 𝕋𝕣𝕖𝕗𝕗𝕡𝕦𝕟𝕜𝕥 ✧ﾟ･*:.｡.☆
+    </pre>
+
+    <h1>✦ Wähle dein Restaurant ✦</h1>
+    <p>⌛ Der Tag ist festgelegt. Wähle eine Zeit ab 20:00 Uhr:</p>
     <input type="time" id="time" min="20:00" max="23:59" step="900">
-    
-    <div id="restaurant-selection" style="margin-top: 20px;">
-      <p>Wähle ein Restaurant oder eine Bar aus:</p>
 
-      <div class="restaurant-option" data-restaurant="Restaurant 1" data-link="https://maps.app.goo.gl/EuNw9AxWCQeNnNmAA?g_st=com.google.maps.preview.copy">
-        <img src="restaurant-image-placeholder.jpg" alt="Restaurant 1">
-        <p>Restaurant 1</p>
-      </div>
-
-      <!-- Weitere Restaurants hier hinzufügen... -->
-
+    <div id="restaurant-selection">
+      <p>🏙 Wähle dein Ziel:</p>
+      <ul>
+        <li><a href="https://maps.app.goo.gl/XYZ1" target="_blank">★ Restaurant A</a></li>
+        <li><a href="https://maps.app.goo.gl/XYZ2" target="_blank">☆ Restaurant B</a></li>
+        <li><a href="https://maps.app.goo.gl/XYZ3" target="_blank">★ Restaurant C</a></li>
+        <li><a href="https://maps.app.goo.gl/XYZ4" target="_blank">☆ Restaurant D</a></li>
+        <li><a href="https://maps.app.goo.gl/XYZ5" target="_blank">★ Restaurant E</a></li>
+        <li><a href="https://maps.app.goo.gl/XYZ6" target="_blank">☆ Restaurant F</a></li>
+        <li><a href="https://maps.app.goo.gl/XYZ7" target="_blank">★ Restaurant G</a></li>
+      </ul>
     </div>
-    
-    <button id="submit">Sende mir eine iMessage</button>
-    <p id="imessage-link" style="margin-top: 20px;"></p>
+
+    <button id="submit">📩 Sende mir eine iMessage</button>
+    <p id="imessage-link"></p>
   </div>
 
   <script>
     const timeInput = document.getElementById("time");
-    const restaurantOptions = document.querySelectorAll(".restaurant-option");
     const submitButton = document.getElementById("submit");
     const imessageLinkContainer = document.getElementById("imessage-link");
 
-    let selectedRestaurant = null;
     let selectedTime = null;
 
     timeInput.addEventListener("change", () => {
-      if (timeInput.value && !selectedRestaurant) {
-        selectedTime = timeInput.value;
-        enableRestaurantSelection();
-      }
+      selectedTime = timeInput.value;
+      submitButton.style.display = "inline-block";
     });
-
-    restaurantOptions.forEach(option => {
-      option.addEventListener("click", () => {
-        if (!timeInput.value) {
-          alert("Bitte wähle zuerst eine Uhrzeit aus.");
-          return;
-        }
-
-        restaurantOptions.forEach(opt => opt.classList.remove("selected"));
-        option.classList.add("selected");
-
-        selectedRestaurant = option.getAttribute("data-restaurant");
-        enableSubmitButton();
-      });
-    });
-
-    function enableSubmitButton() {
-      if (selectedRestaurant && selectedTime) {
-        submitButton.style.display = "inline-block";
-      }
-    }
-
-    function enableRestaurantSelection() {
-      restaurantOptions.forEach(option => option.classList.remove("disabled"));
-    }
 
     submitButton.addEventListener("click", () => {
-      if (selectedRestaurant && selectedTime) {
-        const messageText = `Hey! Ich habe unseren Termin um ${selectedTime} im ${selectedRestaurant} bestätigt. Freu mich auf dich! 💖`;
+      if (selectedTime) {
+        const messageText = `Hey! Ich habe unseren Termin um ${selectedTime} bestätigt. Freu mich auf dich! ♥`;
         const iMessageLink = `sms:+4915737365084&body=${encodeURIComponent(messageText)}`;
 
-        const linkElement = document.createElement("a");
-        linkElement.href = iMessageLink;
-        linkElement.textContent = "✅ iMessage senden";
-        linkElement.style = "display: inline-block; margin-top: 10px; font-size: 1.2rem; color: white; text-decoration: underline;";
-
-        imessageLinkContainer.innerHTML = ""; // Löscht vorherige Links
-        imessageLinkContainer.appendChild(linkElement);
-
-        const preview = document.createElement("div");
-        preview.classList.add("preview");
-        const img = document.createElement("img");
-        img.src = "https://maps.app.goo.gl/favicon.ico"; // Google Maps Favicon
-        preview.appendChild(img);
-
-        const p = document.createElement("p");
-        p.textContent = `Link zu: ${selectedRestaurant}`;
-        preview.appendChild(p);
-
-        imessageLinkContainer.appendChild(preview);
+        imessageLinkContainer.innerHTML = `<a href="${iMessageLink}" style="display: inline-block; color: white; text-decoration: underline;">✅ iMessage senden</a>`;
       }
     });
   </script>
