@@ -12,26 +12,27 @@
     <img src="your-animated-picture-placeholder.gif" alt="Animiertes Bild von uns" class="animated-image">
     <p>Der Tag ist schon festgelegt. Wähle deine Wunschzeit ab 20 Uhr: </p>
     <input type="time" id="time" min="20:00" max="23:59" step="900">
+    
+    <!-- Restaurant Auswahl als Liste -->
     <div id="restaurant-selection" style="display: none; margin-top: 20px;">
       <p>Wähle ein Restaurant oder eine Bar aus:</p>
-      <select id="restaurant">
-        <option value="" disabled selected>Bitte auswählen</option>
-        <option value="Restaurant 1">Restaurant 1 (Google Maps Link)</option>
-        <option value="Restaurant 2">Restaurant 2 (Google Maps Link)</option>
-        <option value="Restaurant 3">Restaurant 3 (Google Maps Link)</option>
-        <option value="Restaurant 4">Restaurant 4 (Google Maps Link)</option>
-        <option value="Restaurant 5">Restaurant 5 (Google Maps Link)</option>
-        <option value="Restaurant 6">Restaurant 6 (Google Maps Link)</option>
-        <option value="Restaurant 7">Restaurant 7 (Google Maps Link)</option>
-      </select>
+      <ul id="restaurant-list">
+        <li><a href="https://www.google.com/maps/place/Restaurant+1" target="_blank">Restaurant 1 (Link zu Google Maps)</a></li>
+        <li><a href="https://www.google.com/maps/place/Restaurant+2" target="_blank">Restaurant 2 (Link zu Google Maps)</a></li>
+        <li><a href="https://www.google.com/maps/place/Restaurant+3" target="_blank">Restaurant 3 (Link zu Google Maps)</a></li>
+        <li><a href="https://www.google.com/maps/place/Restaurant+4" target="_blank">Restaurant 4 (Link zu Google Maps)</a></li>
+        <li><a href="https://www.google.com/maps/place/Restaurant+5" target="_blank">Restaurant 5 (Link zu Google Maps)</a></li>
+        <li><a href="https://www.google.com/maps/place/Restaurant+6" target="_blank">Restaurant 6 (Link zu Google Maps)</a></li>
+        <li><a href="https://www.google.com/maps/place/Restaurant+7" target="_blank">Restaurant 7 (Link zu Google Maps)</a></li>
+      </ul>
     </div>
+    
     <button id="submit" style="display: none; margin-top: 20px;">Sende mir eine iMessage</button>
     <p id="imessage-link" style="margin-top: 20px;"></p>
   </div>
 
   <script>
     const timeInput = document.getElementById("time");
-    const restaurantSelect = document.getElementById("restaurant");
     const restaurantSelectionDiv = document.getElementById("restaurant-selection");
     const submitButton = document.getElementById("submit");
     const imessageLinkContainer = document.getElementById("imessage-link");
@@ -42,18 +43,13 @@
       }
     });
 
-    restaurantSelect.addEventListener("change", () => {
-      if (restaurantSelect.value) {
-        submitButton.style.display = "block"; // Zeigt den "Sende mir eine iMessage"-Button an
-      }
-    });
-
     submitButton.addEventListener("click", () => {
       const time = timeInput.value;
-      const restaurant = restaurantSelect.options[restaurantSelect.selectedIndex].text;
-
-      if (time && restaurant) {
-        const messageText = `Hey! Ich habe unseren Termin um ${time} im ${restaurant} bestätigt. Freu mich auf dich! 😍`;
+      const selectedRestaurant = document.querySelector("#restaurant-list a:focus");
+      
+      if (time && selectedRestaurant) {
+        const restaurantName = selectedRestaurant.textContent.split(' (')[0]; // Extrahiert den Namen des Restaurants
+        const messageText = `Hey! Ich habe unseren Termin um ${time} im ${restaurantName} bestätigt. Freu mich auf dich! 😍`;
         const iMessageLink = `sms:+4915737365084&body=${encodeURIComponent(messageText)}`;
 
         const linkElement = document.createElement("a");
