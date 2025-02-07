@@ -3,34 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kalender</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>🎆 Das große Finale 🎆</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="calendar">
-    <h1>Wähle einen Termin</h1>
+  <div class="page">
+    <h1>🎇 Es ist vollbracht! 🎇</h1>
+    <p>Du hast den Weg gemeistert! 🎉</p>
+    <img src="https://media.giphy.com/media/5GoVLqeAOo6PK/giphy.gif" alt="Celebration GIF">
+    <p>Willst du den Moment feiern? Wähle einen Tag aus! 📅</p>
     <input type="date" id="date">
-    <button id="submit">Bestätigen</button>
-  </div>
-  <script>
-    document.getElementById("submit").addEventListener("click", () => {
-      const date = document.getElementById("date").value;
-      if (date) {
-        sendEmail(date);
-        alert("Dein Termin wurde bestätigt!");
-        window.location.href = "confirmation.html";
-      } else {
-        alert("Bitte wähle ein Datum aus.");
+    <button onclick="submitDate()">Bestätigen 🎉</button>
+    <script>
+      function submitDate() {
+        const date = document.getElementById('date').value;
+        if (date) {
+          alert(`Dein ausgewählter Tag ist: ${date}. 🎈`);
+        } else {
+          alert("Bitte wähle ein Datum aus! 📅");
+        }
       }
-    });
-
-    function sendEmail(date) {
-      fetch("send_email.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: "moritzggauss@gmail.com", date: date })
-      });
-    }
-  </script>
+    </script>
+  </div>
 </body>
 </html>
