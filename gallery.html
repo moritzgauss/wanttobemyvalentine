@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galerie</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="gallery">
+    <h1>Erinnerungen mit dir</h1>
+    <div class="images">
+      <!-- Hier können Bilder oder Botschaften eingefügt werden -->
+      <img src="bild1.jpg" alt="Bild 1">
+      <img src="bild2.jpg" alt="Bild 2">
+    </div>
+    <button id="next">Weiter</button>
+  </div>
+  <script>
+    document.getElementById("next").addEventListener("click", () => {
+      window.location.href = "quiz.html";
+    });
+  </script>
+</body>
+</html>
