@@ -5,9 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>✦★✦ Dein Treffpunkt ✦★✦</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    body { font-family: Arial, sans-serif; background: #ffebf0; text-align: center; }
+    .calendar { padding: 20px; }
+    h1 { font-size: 24px; }
+    ul { list-style: none; padding: 0; }
+    li { 
+      padding: 10px; 
+      margin: 5px 0; 
+      cursor: pointer; 
+      border-radius: 5px; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      background: #fff; 
+      border: 2px solid transparent;
+    }
+    li.selected { border: 2px solid #ff4081; font-weight: bold; background: #ffe0ec; }
+    .arrow { text-decoration: none; color: #ff4081; font-size: 18px; }
+    .input-container { margin-top: 15px; }
+    input { 
+      width: 80%; 
+      padding: 8px; 
+      font-size: 16px; 
+      text-align: center; 
+      border: 2px solid #ff4081; 
+      background: #ffe0ec; 
+      border-radius: 5px; 
+    }
+    button { padding: 10px; margin-top: 15px; background: #ff4081; color: white; border: none; cursor: pointer; }
+    button:disabled { background: grey; cursor: not-allowed; }
+  </style>
 </head>
 <body>
-  <div class="calendar rainbow-bg">
+  <div class="calendar">
     <pre style="text-align:center; font-size:14px;">
         ☆.｡.:*･ﾟ✧ 𝕋𝕣𝕖𝕗𝕗𝕡𝕦𝕟𝕜𝕥 ✧ﾟ･*:.｡.☆
     </pre>
@@ -19,23 +50,29 @@
     <div id="restaurant-selection">
       <p>🏙 Wähle dein Ziel:</p>
       <ul id="restaurant-list">
-        <li data-restaurant="Restaurant A" data-link="https://maps.app.goo.gl/XYZ1">★ Restaurant A</li>
-        <li data-restaurant="Restaurant B" data-link="https://maps.app.goo.gl/XYZ2">☆ Restaurant B</li>
-        <li data-restaurant="Restaurant C" data-link="https://maps.app.goo.gl/XYZ3">★ Restaurant C</li>
-        <li data-restaurant="Restaurant D" data-link="https://maps.app.goo.gl/XYZ4">☆ Restaurant D</li>
-        <li data-restaurant="Restaurant E" data-link="https://maps.app.goo.gl/XYZ5">★ Restaurant E</li>
-        <li data-restaurant="Restaurant F" data-link="https://maps.app.goo.gl/XYZ6">☆ Restaurant F</li>
-        <li data-restaurant="Restaurant G" data-link="https://maps.app.goo.gl/XYZ7">★ Restaurant G</li>
+        <li data-restaurant="Restaurant A" data-link="https://maps.app.goo.gl/XYZ1">★ Restaurant A <a href="https://maps.app.goo.gl/XYZ1" target="_blank" class="arrow">→</a></li>
+        <li data-restaurant="Restaurant B" data-link="https://maps.app.goo.gl/XYZ2">☆ Restaurant B <a href="https://maps.app.goo.gl/XYZ2" target="_blank" class="arrow">→</a></li>
+        <li data-restaurant="Restaurant C" data-link="https://maps.app.goo.gl/XYZ3">★ Restaurant C <a href="https://maps.app.goo.gl/XYZ3" target="_blank" class="arrow">→</a></li>
+        <li data-restaurant="Restaurant D" data-link="https://maps.app.goo.gl/XYZ4">☆ Restaurant D <a href="https://maps.app.goo.gl/XYZ4" target="_blank" class="arrow">→</a></li>
+        <li data-restaurant="Restaurant E" data-link="https://maps.app.goo.gl/XYZ5">★ Restaurant E <a href="https://maps.app.goo.gl/XYZ5" target="_blank" class="arrow">→</a></li>
+        <li data-restaurant="Restaurant F" data-link="https://maps.app.goo.gl/XYZ6">☆ Restaurant F <a href="https://maps.app.goo.gl/XYZ6" target="_blank" class="arrow">→</a></li>
+        <li data-restaurant="Restaurant G" data-link="https://maps.app.goo.gl/XYZ7">★ Restaurant G <a href="https://maps.app.goo.gl/XYZ7" target="_blank" class="arrow">→</a></li>
       </ul>
     </div>
 
-    <button id="submit" style="display:none;">📩 Sende mir eine iMessage</button>
+    <div class="input-container">
+      <p>🌟 Deine Auswahl:</p>
+      <input type="text" id="selected-restaurant" readonly placeholder="Noch nichts ausgewählt">
+    </div>
+
+    <button id="submit" disabled>📩 Sende mir eine iMessage</button>
     <p id="imessage-link"></p>
   </div>
 
   <script>
     const timeInput = document.getElementById("time");
     const restaurantList = document.getElementById("restaurant-list");
+    const restaurantInput = document.getElementById("selected-restaurant");
     const submitButton = document.getElementById("submit");
     const imessageLinkContainer = document.getElementById("imessage-link");
 
@@ -50,18 +87,19 @@
 
     restaurantList.addEventListener("click", (event) => {
       if (event.target.tagName === "LI") {
-        document.querySelectorAll("#restaurant-list li").forEach(li => li.style.fontWeight = "normal");
-        event.target.style.fontWeight = "bold";
+        document.querySelectorAll("#restaurant-list li").forEach(li => li.classList.remove("selected"));
+        event.target.classList.add("selected");
 
         selectedRestaurant = event.target.getAttribute("data-restaurant");
         selectedLink = event.target.getAttribute("data-link");
+        restaurantInput.value = selectedRestaurant;
         checkReady();
       }
     });
 
     function checkReady() {
       if (selectedTime && selectedRestaurant) {
-        submitButton.style.display = "inline-block";
+        submitButton.disabled = false;
       }
     }
 
