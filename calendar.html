@@ -7,30 +7,63 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="calendar">
+  <div class="calendar rainbow-bg">
     <h1>🎉 Termin auswählen</h1>
     <img src="your-animated-picture-placeholder.gif" alt="Animiertes Bild von uns" class="animated-image">
     <p>Der Tag ist schon festgelegt. Wähle deine Wunschzeit ab 20 Uhr: </p>
     <input type="time" id="time" min="20:00" max="23:59" step="900">
-    <button id="submit">Bestätigen</button>
+    <div id="restaurant-selection" style="display: none; margin-top: 20px;">
+      <p>Wähle ein Restaurant oder eine Bar aus:</p>
+      <select id="restaurant">
+        <option value="" disabled selected>Bitte auswählen</option>
+        <option value="Restaurant 1">Restaurant 1 (Google Maps Link)</option>
+        <option value="Restaurant 2">Restaurant 2 (Google Maps Link)</option>
+        <option value="Restaurant 3">Restaurant 3 (Google Maps Link)</option>
+        <option value="Restaurant 4">Restaurant 4 (Google Maps Link)</option>
+        <option value="Restaurant 5">Restaurant 5 (Google Maps Link)</option>
+        <option value="Restaurant 6">Restaurant 6 (Google Maps Link)</option>
+        <option value="Restaurant 7">Restaurant 7 (Google Maps Link)</option>
+      </select>
+    </div>
+    <button id="submit" style="display: none; margin-top: 20px;">Sende mir eine iMessage</button>
     <p id="imessage-link" style="margin-top: 20px;"></p>
   </div>
 
   <script>
-    document.getElementById("submit").addEventListener("click", () => {
-      const time = document.getElementById("time").value;
-      if (time) {
-        const messageText = `Hey! Ich habe unseren Termin um ${time} bestätigt. Freu mich auf dich! 😍`;
+    const timeInput = document.getElementById("time");
+    const restaurantSelect = document.getElementById("restaurant");
+    const restaurantSelectionDiv = document.getElementById("restaurant-selection");
+    const submitButton = document.getElementById("submit");
+    const imessageLinkContainer = document.getElementById("imessage-link");
+
+    timeInput.addEventListener("change", () => {
+      if (timeInput.value) {
+        restaurantSelectionDiv.style.display = "block"; // Zeigt die Restaurant-Auswahl an
+      }
+    });
+
+    restaurantSelect.addEventListener("change", () => {
+      if (restaurantSelect.value) {
+        submitButton.style.display = "block"; // Zeigt den "Sende mir eine iMessage"-Button an
+      }
+    });
+
+    submitButton.addEventListener("click", () => {
+      const time = timeInput.value;
+      const restaurant = restaurantSelect.options[restaurantSelect.selectedIndex].text;
+
+      if (time && restaurant) {
+        const messageText = `Hey! Ich habe unseren Termin um ${time} im ${restaurant} bestätigt. Freu mich auf dich! 😍`;
         const iMessageLink = `sms:+4915737365084&body=${encodeURIComponent(messageText)}`;
 
         const linkElement = document.createElement("a");
         linkElement.href = iMessageLink;
-        linkElement.textContent = "✅ iMessage bestätigen";
+        linkElement.textContent = "✅ iMessage senden";
         linkElement.style = "display: inline-block; margin-top: 10px; font-size: 1.2rem; color: white; text-decoration: underline;";
 
-        document.getElementById("imessage-link").innerHTML = ""; // Clear previous links
-        document.getElementById("imessage-link").appendChild(linkElement);
-
+        imessageLinkContainer.innerHTML = ""; // Löscht vorherige Links
+        imessageLinkContainer.appendChild(linkElement);
+      }
     });
   </script>
 </body>
