@@ -3,23 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz</title>
+  <title>🎯 Quiz</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="quiz">
-    <h1>Beantworte diese Frage:</h1>
-    <p>Wann war unser erstes Date?</p>
-    <button id="correct">Richtig!</button>
-    <button id="wrong">Falsch</button>
+    <h1>Quiz: Wie gut kennst du uns?</h1>
+    <img src="your-picture-placeholder.gif" alt="Dein Bild" class="animated-image">
+    <p>Beantworte diese Frage, um weiterzukommen:</p>
+    <p>🐶 Was ist unser gemeinsamer Lieblingshund?</p>
+    <button onclick="checkAnswer('Corgi')">Corgi</button>
+    <button onclick="checkAnswer('Dalmatiner')">Dalmatiner</button>
+    <button onclick="checkAnswer('Golden Retriever')">Golden Retriever</button>
+    <button onclick="checkAnswer('Shiba Inu')">Shiba Inu</button>
   </div>
+
   <script>
-    document.getElementById("correct").addEventListener("click", () => {
-      window.location.href = "calendar.html";
-    });
-    document.getElementById("wrong").addEventListener("click", () => {
-      alert("Versuch's nochmal!");
-    });
+    function checkAnswer(answer) {
+      if (answer === "Corgi") {
+        alert("Richtig! Weiter geht's!");
+        window.location.href = "labyrinth.html";
+      } else {
+        alert("Falsch! Versuch es nochmal!");
+      }
+    }
   </script>
 </body>
 </html>
