@@ -56,14 +56,6 @@ img {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.rainbow-bg {
-  background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
-  color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
 .animated-image {
   max-width: 250px;
   animation: pulse 2s infinite;
