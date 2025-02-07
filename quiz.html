@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="quiz">
+    <h1>Beantworte diese Frage:</h1>
+    <p>Wann war unser erstes Date?</p>
+    <button id="correct">Richtig!</button>
+    <button id="wrong">Falsch</button>
+  </div>
+  <script>
+    document.getElementById("correct").addEventListener("click", () => {
+      window.location.href = "calendar.html";
+    });
+    document.getElementById("wrong").addEventListener("click", () => {
+      alert("Versuch's nochmal!");
+    });
+  </script>
+</body>
+</html>
