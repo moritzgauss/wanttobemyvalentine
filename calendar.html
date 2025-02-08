@@ -48,6 +48,8 @@ color: black;
   </style>
 </head>
 <body>
+  <!-- Overlay mit Video und Sound -->
+
   <div class="calendar">
     <pre style="text-align:center; font-size:14px;">
         ☆.｡.:*･ﾟ✧ 𝕋𝕣𝕖𝕗𝕗𝕡𝕦𝕟𝕜𝕥 ✧ﾟ･*:.｡.☆
@@ -75,59 +77,103 @@ color: black;
     
 <p>Und am nächsten Tag geht es zu <a href="https://maps.app.goo.gl/uGSAPfP4nyox7PtZ6?g_st=com.google.maps.preview.copy" target="_blank">Frühstück 3000</a> am Nollendorfplatz (ich habe noch einen Gutschein).</p>
   </div>
+  
 
   <script>
-    const timeInput = document.getElementById("time");
-    const restaurantList = document.getElementById("restaurant-list");
-    const submitButton = document.getElementById("submit");
-    const imessageLinkContainer = document.getElementById("imessage-link");
+const timeInput = document.getElementById("time");
+const restaurantList = document.getElementById("restaurant-list");
+const submitButton = document.getElementById("submit");
+const imessageLinkContainer = document.getElementById("imessage-link");
 
-    let selectedTime = null;
-    let selectedRestaurant = null;
-    let selectedLink = null;
+// Overlay elements
+const overlay = document.createElement("div");
+overlay.classList.add("overlay");
+overlay.innerHTML = `
+<div id="video-overlay" class="overlay">
+  <video id="overlay-video" autoplay loop muted>
+    <source src="https://raw.githubusercontent.com/moritzgauss/wanttobemyvalentine/refs/heads/main/186cd3e0d46d4a2f9662dfd3142ccdbc.mov" type="video/mov">
+    Dein Browser unterstützt kein Video.
+  </video>
+  <p>Warte kurz, das wollte ich dir noch zeigen!</p>
+  <button id="close-overlay" class="close-overlay">✖ Schließen</button>
+  <audio id="overlay-audio" src="https://raw.githubusercontent.com/moritzgauss/wanttobemyvalentine/refs/heads/main/wieso-tust-du-mir-weh.mp3"></audio>
+</div>
+`;
+document.body.appendChild(overlay);
 
-    // Funktion zum Überprüfen, ob beide Werte gesetzt sind
-    function checkReady() {
-      if (selectedTime && selectedRestaurant) {
-        submitButton.classList.add("enabled");
-        submitButton.disabled = false;
-      } else {
-        submitButton.classList.remove("enabled");
-        submitButton.disabled = true;
-      }
-    }
+const closeOverlay = document.getElementById("close-overlay");
+const overlayAudio = document.getElementById("overlay-audio");
 
-    // Event Listener für die Zeitauswahl
-    timeInput.addEventListener("change", () => {
-      selectedTime = timeInput.value;
-      checkReady();
-    });
+let selectedTime = null;
+let selectedRestaurant = null;
+let selectedLink = null;
 
-    // Event Listener für die Restaurant-Auswahl
-    restaurantList.addEventListener("click", (event) => {
-      const target = event.target.closest("li");
-      if (target) {
-        document.querySelectorAll("#restaurant-list li").forEach(li => li.classList.remove("selected"));
-        target.classList.add("selected");
-
-        selectedRestaurant = target.getAttribute("data-restaurant");
-        selectedLink = target.getAttribute("data-link");
-        checkReady();
-      }
-    });
-
-    // Event Listener für den Button-Klick
-    submitButton.addEventListener("click", () => {
-      if (selectedTime && selectedRestaurant && selectedLink) {
-        const messageText = `Hey! Ich habe unseren Termin um ${selectedTime} im ${selectedRestaurant} bestätigt. Hier ist der Link: ${selectedLink} – Freu mich auf dich! ♥`;
-        const iMessageLink = `sms:+4915737365084&body=${encodeURIComponent(messageText)}`;
-
-        imessageLinkContainer.innerHTML = `<a href="${iMessageLink}" style="display: inline-block; color: white; text-decoration: underline;">✅ iMessage senden</a>`;
-      }
-    });
-
-    // Button standardmäßig deaktivieren
+// Function to check if both values are set
+function checkReady() {
+  if (selectedTime && selectedRestaurant) {
+    submitButton.classList.add("enabled");
+    submitButton.disabled = false;
+  } else {
+    submitButton.classList.remove("enabled");
     submitButton.disabled = true;
+  }
+}
+
+// Event listener for time selection
+timeInput.addEventListener("change", () => {
+  selectedTime = timeInput.value;
+  checkReady();
+});
+
+// Event listener for restaurant selection
+restaurantList.addEventListener("click", (event) => {
+  const target = event.target.closest("li");
+  if (target) {
+    document.querySelectorAll("#restaurant-list li").forEach(li => li.classList.remove("selected"));
+    target.classList.add("selected");
+
+    selectedRestaurant = target.getAttribute("data-restaurant");
+    selectedLink = target.getAttribute("data-link");
+    checkReady();
+
+    // Show overlay
+    overlay.classList.add("show");
+    overlayAudio.play();
+
+    // Wait 15 seconds before allowing close
+    setTimeout(() => {
+      closeOverlay.style.display = "block";
+    }, 15000);
+  }
+});
+
+// Close overlay after 15 seconds or clicking outside
+closeOverlay.addEventListener("click", () => {
+  overlay.classList.remove("show");
+  overlayAudio.pause();
+  overlayAudio.currentTime = 0;
+});
+
+overlay.addEventListener("click", (event) => {
+  if (event.target === overlay && closeOverlay.style.display === "block") {
+    overlay.classList.remove("show");
+    overlayAudio.pause();
+    overlayAudio.currentTime = 0;
+  }
+});
+
+// Event listener for the submit button click
+submitButton.addEventListener("click", () => {
+  if (selectedTime && selectedRestaurant && selectedLink) {
+    const messageText = `Hey! Ich habe unseren Termin um ${selectedTime} im ${selectedRestaurant} bestätigt. Hier ist der Link: ${selectedLink} – Freu mich auf dich! ♥`;
+    const iMessageLink = `sms:+4915737365084&body=${encodeURIComponent(messageText)}`;
+
+    imessageLinkContainer.innerHTML = `<a href="${iMessageLink}" style="display: inline-block; color: white; text-decoration: underline;">✅ iMessage senden</a>`;
+  }
+});
+
+// Disable button by default
+submitButton.disabled = true;
   </script>
 </body>
 </html>
