@@ -6,6 +6,7 @@ body {
   flex-direction: column; /* Stacks elements vertically */
   justify-content: center;
   align-items: center;
+  text-align: center;
   min-height: 100vh;
   background: #ff9a9e;
 }
@@ -40,6 +41,7 @@ body {
 /* Overlay-Text */
 .overlay p {
   margin-top: 15px;
+  color: white;
   font-size: 18px;
   font-weight: bold;
 }
