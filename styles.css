@@ -102,7 +102,14 @@ img {
 
 #submit {
   margin-top: 20px;
-  display: none;
+  display: block;
+  opacity: 0.5; /* Standardmäßig ausgegraut */
+  pointer-events: none; /* Klicks deaktivieren */
+}
+
+#submit.enabled {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 #imessage-link {
