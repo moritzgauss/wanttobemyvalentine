@@ -1,5 +1,5 @@
 body {
-  font-family: 'Georgia', serif;
+  font-family: 'Georgia', serif; /* Romantischere Schriftart */
   margin: 0;
   padding: 0;
   display: flex;
@@ -49,6 +49,28 @@ button:hover {
   transform: scale(1.1);
 }
 
+img {
+  max-width: 300px;
+  margin: 20px auto;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.animated-image {
+  max-width: 250px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Zusätzliche Formatierungen */
 .restaurant-option {
   margin: 15px 0;
   padding: 10px;
