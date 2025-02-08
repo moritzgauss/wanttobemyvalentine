@@ -5,41 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>✦★✦ Dein Treffpunkt ✦★✦</title>
   <link rel="stylesheet" href="styles.css">
-  <style>
-    body { font-family: Arial, sans-serif; background: #ffebf0; text-align: center; }
-    .calendar { padding: 20px; }
-    h1 { font-size: 24px; }
-    ul { list-style: none; padding: 0; }
-    li { 
-      padding: 10px; 
-      margin: 5px 0; 
-      cursor: pointer; 
-      border-radius: 5px; 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center; 
-      background: #fff; 
-      border: 2px solid transparent;
-    }
-    li.selected { border: 2px solid #ff4081; font-weight: bold; background: #ffe0ec; }
-    .arrow { text-decoration: none; color: #ff4081; font-size: 18px; }
-    .input-container { margin-top: 15px; }
-    input { 
-      width: 80%; 
-      padding: 8px; 
-      font-size: 16px; 
-      text-align: center; 
-      border: 2px solid #ff4081; 
-      background: #ffe0ec; 
-      border-radius: 5px; 
-    }
-    button { padding: 10px; margin-top: 15px; background: #ff4081; color: white; border: none; cursor: pointer; }
-    button:disabled { background: grey; cursor: not-allowed; }
-  </style>
 </head>
 <body>
   <div class="calendar">
-    <pre style="text-align:center; font-size:14px;">
+    <pre class="ascii-art">
         ☆.｡.:*･ﾟ✧ 𝕋𝕣𝕖𝕗𝕗𝕡𝕦𝕟𝕜𝕥 ✧ﾟ･*:.｡.☆
     </pre>
 
@@ -86,12 +55,13 @@
     });
 
     restaurantList.addEventListener("click", (event) => {
-      if (event.target.tagName === "LI") {
+      if (event.target.tagName === "LI" || event.target.tagName === "A") {
+        const target = event.target.tagName === "LI" ? event.target : event.target.parentElement;
         document.querySelectorAll("#restaurant-list li").forEach(li => li.classList.remove("selected"));
-        event.target.classList.add("selected");
+        target.classList.add("selected");
 
-        selectedRestaurant = event.target.getAttribute("data-restaurant");
-        selectedLink = event.target.getAttribute("data-link");
+        selectedRestaurant = target.getAttribute("data-restaurant");
+        selectedLink = target.getAttribute("data-link");
         restaurantInput.value = selectedRestaurant;
         checkReady();
       }
