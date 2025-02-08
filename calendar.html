@@ -80,22 +80,23 @@ color: black;
   
 
   <script>
+<script>
 const timeInput = document.getElementById("time");
 const restaurantList = document.getElementById("restaurant-list");
 const submitButton = document.getElementById("submit");
 const imessageLinkContainer = document.getElementById("imessage-link");
 
-// Overlay elements
+// Overlay-Elemente erstellen
 const overlay = document.createElement("div");
 overlay.classList.add("overlay");
 overlay.innerHTML = `
 <div id="video-overlay" class="overlay">
-  <video id="overlay-video" autoplay loop muted>
-    <source src="https://raw.githubusercontent.com/moritzgauss/wanttobemyvalentine/refs/heads/main/704427682f42431b9af5d7607044682e.mp4" type="video/mp4">
+  <video id="overlay-video" autoplay muted playsinline>
+    <source src="https://raw.githubusercontent.com/moritzgauss/wanttobemyvalentine/refs/heads/main/Video_1.mp4" type="video/mp4">
     Dein Browser unterstützt kein Video.
   </video>
   <p>Warte kurz, das wollte ich dir noch zeigen!</p>
-  <button id="close-overlay" class="close-overlay">✖ Schließen</button>
+  <button id="close-overlay" class="close-overlay" style="display: none;">✖ Schließen</button>
   <audio id="overlay-audio" src="https://raw.githubusercontent.com/moritzgauss/wanttobemyvalentine/refs/heads/main/wieso-tust-du-mir-weh.mp3"></audio>
 </div>
 `;
@@ -103,12 +104,13 @@ document.body.appendChild(overlay);
 
 const closeOverlay = document.getElementById("close-overlay");
 const overlayAudio = document.getElementById("overlay-audio");
+const overlayVideo = document.getElementById("overlay-video");
 
 let selectedTime = null;
 let selectedRestaurant = null;
 let selectedLink = null;
 
-// Function to check if both values are set
+// Funktion zum Überprüfen, ob beide Werte gesetzt sind
 function checkReady() {
   if (selectedTime && selectedRestaurant) {
     submitButton.classList.add("enabled");
@@ -119,13 +121,13 @@ function checkReady() {
   }
 }
 
-// Event listener for time selection
+// Event-Listener für die Zeitauswahl
 timeInput.addEventListener("change", () => {
   selectedTime = timeInput.value;
   checkReady();
 });
 
-// Event listener for restaurant selection
+// Event-Listener für die Restaurant-Auswahl
 restaurantList.addEventListener("click", (event) => {
   const target = event.target.closest("li");
   if (target) {
@@ -136,33 +138,41 @@ restaurantList.addEventListener("click", (event) => {
     selectedLink = target.getAttribute("data-link");
     checkReady();
 
-    // Show overlay
+    // Overlay anzeigen
     overlay.classList.add("show");
-    overlayAudio.play();
+    
+    // Audio und Video abspielen
+    overlayAudio.play().catch(error => console.log("Audio-Autoplay wurde blockiert."));
+    overlayVideo.play().catch(error => console.log("Video-Autoplay wurde blockiert, erfordert Nutzerinteraktion."));
 
-    // Wait 15 seconds before allowing close
+    // Schließen-Button erst nach 15 Sekunden anzeigen
     setTimeout(() => {
       closeOverlay.style.display = "block";
     }, 15000);
   }
 });
 
-// Close overlay after 15 seconds or clicking outside
+// Event-Listener zum Schließen des Overlays
 closeOverlay.addEventListener("click", () => {
   overlay.classList.remove("show");
   overlayAudio.pause();
   overlayAudio.currentTime = 0;
+  overlayVideo.pause();
+  overlayVideo.currentTime = 0;
 });
 
+// Event-Listener für Klick außerhalb des Overlays
 overlay.addEventListener("click", (event) => {
   if (event.target === overlay && closeOverlay.style.display === "block") {
     overlay.classList.remove("show");
     overlayAudio.pause();
     overlayAudio.currentTime = 0;
+    overlayVideo.pause();
+    overlayVideo.currentTime = 0;
   }
 });
 
-// Event listener for the submit button click
+// Event-Listener für den "iMessage senden"-Button
 submitButton.addEventListener("click", () => {
   if (selectedTime && selectedRestaurant && selectedLink) {
     const messageText = `Hey! Ich habe unseren Termin um ${selectedTime} im ${selectedRestaurant} bestätigt. Hier ist der Link: ${selectedLink} – Freu mich auf dich! ♥`;
@@ -172,8 +182,9 @@ submitButton.addEventListener("click", () => {
   }
 });
 
-// Disable button by default
+// Standardmäßig Button deaktivieren
 submitButton.disabled = true;
+</script>
   </script>
 </body>
 </html>
