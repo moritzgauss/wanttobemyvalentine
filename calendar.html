@@ -48,7 +48,6 @@ color: black;
   </style>
 </head>
 <body>
-  <!-- Overlay mit Video und Sound -->
 
   <div class="calendar">
     <pre style="text-align:center; font-size:14px;">
@@ -78,33 +77,28 @@ color: black;
 <p>Und am nächsten Tag geht es zu <a href="https://maps.app.goo.gl/7ZStbrBBn19sXvLi7?g_st=com.google.maps.preview.copy" target="_blank">Frühstück 3000</a> am Nollendorfplatz (ich habe noch einen Gutschein).</p>
   </div>
   
-
 <script>
 const timeInput = document.getElementById("time");
 const restaurantList = document.getElementById("restaurant-list");
 const submitButton = document.getElementById("submit");
 const imessageLinkContainer = document.getElementById("imessage-link");
 
-// Overlay-Elemente
+// Overlay-Elemente erstellen
 const overlay = document.createElement("div");
 overlay.classList.add("overlay");
 overlay.style.display = "none"; // Anfangs versteckt
 overlay.innerHTML = `
-<div id="video-overlay" class="overlay">
-  <video id="overlay-video" autoplay muted playsinline>
-    <source src="https://raw.githubusercontent.com/moritzgauss/Video%201.mp4" type="video/mp4">
-    Dein Browser unterstützt kein Video.
-  </video>
-  <p>Warte kurz, das wollte ich dir noch zeigen!</p>
-  <button id="close-overlay" class="close-overlay" style="display: none;">✖ Schließen</button>
-  <audio id="overlay-audio" src="https://raw.githubusercontent.com/moritzgauss/wanttobemyvalentine/main/wieso-tust-du-mir-weh.mp3"></audio>
-</div>
+  <div id="video-overlay" class="overlay-content">
+    <img id="overlay-gif" src="https://raw.githubusercontent.com/moritzgauss/wanttobemyvalentine/refs/heads/main/704427682f42431b9af5d7607044682e.gif" alt="GIF">
+    <p>Warte kurz, das wollte ich dir noch zeigen!</p>
+    <button id="close-overlay" class="close-overlay">✖ Schließen</button>
+    <audio id="overlay-audio" src="https://raw.githubusercontent.com/moritzgauss/wanttobemyvalentine/refs/heads/main/wieso-tust-du-mir-weh.mp3"></audio>
+  </div>
 `;
 document.body.appendChild(overlay);
 
 const closeOverlay = document.getElementById("close-overlay");
 const overlayAudio = document.getElementById("overlay-audio");
-const overlayVideo = document.getElementById("overlay-video");
 
 let selectedTime = null;
 let selectedRestaurant = null;
@@ -139,10 +133,9 @@ restaurantList.addEventListener("click", (event) => {
     checkReady();
 
     // Overlay sichtbar machen
-    overlay.style.display = "flex"; // Sicherstellen, dass es angezeigt wird
+    overlay.style.display = "flex"; 
     
-    // Video & Audio abspielen
-    overlayVideo.play().catch(error => console.log("Video-Autoplay blockiert."));
+    // Audio abspielen
     overlayAudio.play().catch(error => console.log("Audio-Autoplay blockiert."));
 
     // Schließen-Button erst nach 15 Sekunden anzeigen
@@ -157,8 +150,6 @@ closeOverlay.addEventListener("click", () => {
   overlay.style.display = "none";
   overlayAudio.pause();
   overlayAudio.currentTime = 0;
-  overlayVideo.pause();
-  overlayVideo.currentTime = 0;
 });
 
 // Klick außerhalb des Overlays schließt es ebenfalls (nach 15 Sekunden)
@@ -167,8 +158,6 @@ overlay.addEventListener("click", (event) => {
     overlay.style.display = "none";
     overlayAudio.pause();
     overlayAudio.currentTime = 0;
-    overlayVideo.pause();
-    overlayVideo.currentTime = 0;
   }
 });
 
