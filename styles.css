@@ -104,7 +104,7 @@ button {
   background-color: #ff6699;
   color: white;
   border: none;
-    text-align: center;
+  justify-content: center;
   border-radius: 5px;
   cursor: pointer;
   transition: transform 0.2s ease, background-color 0.3s ease;
@@ -118,6 +118,7 @@ button:hover {
 
 img {
   max-width: 300px;
+    justify-content: center;
   margin: 20px auto;
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -125,6 +126,7 @@ img {
 
 .animated-image {
   max-width: 250px;
+    justify-content: center;
   animation: pulse 2s infinite;
 }
 
@@ -190,6 +192,7 @@ img {
 }
 
 .preview img {
+  
   max-width: 30px;
   margin-right: 10px;
   border-radius: 5px;
