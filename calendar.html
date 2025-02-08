@@ -137,7 +137,7 @@ restaurantList.addEventListener("click", (event) => {
 // Event-Listener für den Submit-Button -> Öffnet das Overlay
 submitButton.addEventListener("click", () => {
   if (selectedTime && selectedRestaurant && selectedLink) {
-    const messageText = `Hey bubi! Ich will am v-Day mit dir um ${selectedTime} ins ${selectedRestaurant} . Hier ist der Link: ${selectedLink} – Bitte komm mit! ♥ deine Chiari 🐣`;
+    const messageText = `Hey bubi! Ich will am Valentinstag mit dir um ${selectedTime} ins ${selectedRestaurant} . Hier ist der Link: ${selectedLink} – Bitte komm mit! ♥`;
     const iMessageLink = `sms:+4915737365084&body=${encodeURIComponent(messageText)}`;
 
     imessageLinkContainer.innerHTML = `<a href="${iMessageLink}" style="display: inline-block; color: white; text-decoration: underline;">✅ klick hier um mir die iMessage zu senden</a>`;
