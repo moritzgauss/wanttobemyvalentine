@@ -23,7 +23,6 @@
     }
     li.selected { border: 2px solid #ff4081; font-weight: bold; background: #ffe0ec; }
     .arrow { text-decoration: none; color: #ff4081; font-size: 18px; }
-    .input-container { margin-top: 15px; }
     input { 
       width: 80%; 
       padding: 8px; 
@@ -33,8 +32,16 @@
       background: #ffe0ec; 
       border-radius: 5px; 
     }
-    button { padding: 10px; margin-top: 15px; background: #ff4081; color: white; border: none; cursor: pointer; }
-    button:disabled { background: grey; cursor: not-allowed; }
+    button { 
+      padding: 10px; 
+      margin-top: 15px; 
+      background: #ff4081; 
+      color: white; 
+      border: none; 
+      cursor: pointer; 
+      opacity: 0.5; 
+    }
+    button.enabled { opacity: 1; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -60,19 +67,13 @@
       </ul>
     </div>
 
-    <div class="input-container">
-      <p>🌟 Deine Auswahl:</p>
-      <input type="text" id="selected-restaurant" readonly placeholder="Noch nichts ausgewählt">
-    </div>
-
-    <button id="submit" disabled>📩 Sende mir eine iMessage</button>
+    <button id="submit">📩 Sende mir eine iMessage</button>
     <p id="imessage-link"></p>
   </div>
 
   <script>
     const timeInput = document.getElementById("time");
     const restaurantList = document.getElementById("restaurant-list");
-    const restaurantInput = document.getElementById("selected-restaurant");
     const submitButton = document.getElementById("submit");
     const imessageLinkContainer = document.getElementById("imessage-link");
 
@@ -80,32 +81,37 @@
     let selectedRestaurant = null;
     let selectedLink = null;
 
+    // Funktion zum Überprüfen, ob beide Werte gesetzt sind
+    function checkReady() {
+      if (selectedTime && selectedRestaurant) {
+        submitButton.classList.add("enabled");
+        submitButton.disabled = false;
+      } else {
+        submitButton.classList.remove("enabled");
+        submitButton.disabled = true;
+      }
+    }
+
+    // Event Listener für die Zeitauswahl
     timeInput.addEventListener("change", () => {
       selectedTime = timeInput.value;
       checkReady();
     });
 
+    // Event Listener für die Restaurant-Auswahl
     restaurantList.addEventListener("click", (event) => {
-      let target = event.target.closest("li");
-      if (!target) return;
+      const target = event.target.closest("li");
+      if (target) {
+        document.querySelectorAll("#restaurant-list li").forEach(li => li.classList.remove("selected"));
+        target.classList.add("selected");
 
-      document.querySelectorAll("#restaurant-list li").forEach(li => li.classList.remove("selected"));
-      target.classList.add("selected");
-
-      selectedRestaurant = target.getAttribute("data-restaurant");
-      selectedLink = target.getAttribute("data-link");
-      restaurantInput.value = selectedRestaurant;
-      checkReady();
+        selectedRestaurant = target.getAttribute("data-restaurant");
+        selectedLink = target.getAttribute("data-link");
+        checkReady();
+      }
     });
 
-    function checkReady() {
-      if (selectedTime && selectedRestaurant) {
-        submitButton.disabled = false;
-      } else {
-        submitButton.disabled = true;
-      }
-    }
-
+    // Event Listener für den Button-Klick
     submitButton.addEventListener("click", () => {
       if (selectedTime && selectedRestaurant && selectedLink) {
         const messageText = `Hey! Ich habe unseren Termin um ${selectedTime} im ${selectedRestaurant} bestätigt. Hier ist der Link: ${selectedLink} – Freu mich auf dich! ♥`;
@@ -114,6 +120,9 @@
         imessageLinkContainer.innerHTML = `<a href="${iMessageLink}" style="display: inline-block; color: white; text-decoration: underline;">✅ iMessage senden</a>`;
       }
     });
+
+    // Button standardmäßig deaktivieren
+    submitButton.disabled = true;
   </script>
 </body>
 </html>
