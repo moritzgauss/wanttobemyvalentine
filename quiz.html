@@ -8,21 +8,21 @@
 </head>
 <body>
   <div class="quiz">
-    <h1>Quiz: Wie gut kennst du uns?</h1>
-    <img src="your-picture-placeholder.gif" alt="Dein Bild" class="animated-image">
+    <h1>Quiz: Wie gut kennst du mich?</h1>
+    <img src="https://raw.githubusercontent.com/moritzgauss/wanttobemyvalentine/refs/heads/main/IMG_0410.jpeg" alt="Dein Bild" class="animated-image">
     <p>Beantworte diese Frage, um weiterzukommen:</p>
-    <p>🐶 Was ist unser gemeinsamer Lieblingshund?</p>
-    <button onclick="checkAnswer('Corgi')">Corgi</button>
-    <button onclick="checkAnswer('Dalmatiner')">Dalmatiner</button>
-    <button onclick="checkAnswer('Golden Retriever')">Golden Retriever</button>
-    <button onclick="checkAnswer('Shiba Inu')">Shiba Inu</button>
+    <p>🥹Was ist mein Lieblingsbezirk?</p>
+    <button onclick="checkAnswer('Pberg')">Pberg</button>
+    <button onclick="checkAnswer('Karlshorst')">Karlshorst</button>
+    <button onclick="checkAnswer('CHB')">CHB</button>
+    <button onclick="checkAnswer('New Kölln')">New Kölln</button>
   </div>
 
   <script>
     function checkAnswer(answer) {
-      if (answer === "Corgi") {
+      if (answer === "Karlshorst") {
         alert("Richtig! Weiter geht's!");
-        window.location.href = "labyrinth.html";
+        window.location.href = "captcha.html";
       } else {
         alert("Falsch! Versuch es nochmal!");
       }
