@@ -50,13 +50,13 @@
     <div id="restaurant-selection">
       <p>🏙 Wähle dein Ziel:</p>
       <ul id="restaurant-list">
-        <li data-restaurant="Restaurant A" data-link="https://maps.app.goo.gl/XYZ1">★ Restaurant A <a href="https://maps.app.goo.gl/XYZ1" target="_blank" class="arrow">→</a></li>
-        <li data-restaurant="Restaurant B" data-link="https://maps.app.goo.gl/XYZ2">☆ Restaurant B <a href="https://maps.app.goo.gl/XYZ2" target="_blank" class="arrow">→</a></li>
-        <li data-restaurant="Restaurant C" data-link="https://maps.app.goo.gl/XYZ3">★ Restaurant C <a href="https://maps.app.goo.gl/XYZ3" target="_blank" class="arrow">→</a></li>
-        <li data-restaurant="Restaurant D" data-link="https://maps.app.goo.gl/XYZ4">☆ Restaurant D <a href="https://maps.app.goo.gl/XYZ4" target="_blank" class="arrow">→</a></li>
-        <li data-restaurant="Restaurant E" data-link="https://maps.app.goo.gl/XYZ5">★ Restaurant E <a href="https://maps.app.goo.gl/XYZ5" target="_blank" class="arrow">→</a></li>
-        <li data-restaurant="Restaurant F" data-link="https://maps.app.goo.gl/XYZ6">☆ Restaurant F <a href="https://maps.app.goo.gl/XYZ6" target="_blank" class="arrow">→</a></li>
-        <li data-restaurant="Restaurant G" data-link="https://maps.app.goo.gl/XYZ7">★ Restaurant G <a href="https://maps.app.goo.gl/XYZ7" target="_blank" class="arrow">→</a></li>
+        <li data-restaurant="Restaurant A" data-link="https://maps.app.goo.gl/XYZ1">★ Restaurant A <a href="https://maps.app.goo.gl/XYZ1" target="_blank" class="arrow">🔗</a></li>
+        <li data-restaurant="Restaurant B" data-link="https://maps.app.goo.gl/XYZ2">☆ Restaurant B <a href="https://maps.app.goo.gl/XYZ2" target="_blank" class="arrow">🔗</a></li>
+        <li data-restaurant="Restaurant C" data-link="https://maps.app.goo.gl/XYZ3">★ Restaurant C <a href="https://maps.app.goo.gl/XYZ3" target="_blank" class="arrow">🔗</a></li>
+        <li data-restaurant="Restaurant D" data-link="https://maps.app.goo.gl/XYZ4">☆ Restaurant D <a href="https://maps.app.goo.gl/XYZ4" target="_blank" class="arrow">🔗</a></li>
+        <li data-restaurant="Restaurant E" data-link="https://maps.app.goo.gl/XYZ5">★ Restaurant E <a href="https://maps.app.goo.gl/XYZ5" target="_blank" class="arrow">🔗</a></li>
+        <li data-restaurant="Restaurant F" data-link="https://maps.app.goo.gl/XYZ6">☆ Restaurant F <a href="https://maps.app.goo.gl/XYZ6" target="_blank" class="arrow">🔗</a></li>
+        <li data-restaurant="Restaurant G" data-link="https://maps.app.goo.gl/XYZ7">★ Restaurant G <a href="https://maps.app.goo.gl/XYZ7" target="_blank" class="arrow">🔗</a></li>
       </ul>
     </div>
 
@@ -86,20 +86,23 @@
     });
 
     restaurantList.addEventListener("click", (event) => {
-      if (event.target.tagName === "LI") {
-        document.querySelectorAll("#restaurant-list li").forEach(li => li.classList.remove("selected"));
-        event.target.classList.add("selected");
+      let target = event.target.closest("li");
+      if (!target) return;
 
-        selectedRestaurant = event.target.getAttribute("data-restaurant");
-        selectedLink = event.target.getAttribute("data-link");
-        restaurantInput.value = selectedRestaurant;
-        checkReady();
-      }
+      document.querySelectorAll("#restaurant-list li").forEach(li => li.classList.remove("selected"));
+      target.classList.add("selected");
+
+      selectedRestaurant = target.getAttribute("data-restaurant");
+      selectedLink = target.getAttribute("data-link");
+      restaurantInput.value = selectedRestaurant;
+      checkReady();
     });
 
     function checkReady() {
       if (selectedTime && selectedRestaurant) {
         submitButton.disabled = false;
+      } else {
+        submitButton.disabled = true;
       }
     }
 
