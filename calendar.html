@@ -61,13 +61,13 @@ color: black;
     <div id="restaurant-selection">
       <p>🏙 Wähle dein Ziel:</p>
       <ul id="restaurant-list">
-        <li data-restaurant="Restaurant A" data-link="https://maps.app.goo.gl/uGSAPfP4nyox7PtZ6?g_st=com.google.maps.preview.copy">★ Sumak Schlesisches Tor<a href="https://maps.app.goo.gl/uGSAPfP4nyox7PtZ6?g_st=com.google.maps.preview.copy" target="_blank" class="arrow">🔗</a></li>
-        <li data-restaurant="Restaurant B" data-link="https://maps.app.goo.gl/kVLHZf8PaCwNEGB59?g_st=com.google.maps.preview.copy">☆ Italienisches Restaurant Quattro Fratelli<a href="https://maps.app.goo.gl/kVLHZf8PaCwNEGB59?g_st=com.google.maps.preview.copy" target="_blank" class="arrow">🔗</a></li>
-        <li data-restaurant="Restaurant C" data-link="https://maps.app.goo.gl/c47YKfWz76872ZhR9?g_st=com.google.maps.preview.copy">★ bertie American fine cuisine <a href="https://maps.app.goo.gl/c47YKfWz76872ZhR9" target="_blank" class="arrow">🔗</a></li>
-        <li data-restaurant="Restaurant D" data-link="https://maps.app.goo.gl/jJD7HJLTorXga9ub9?g_st=com.google.maps.preview.copy">☆ Wok Show Dumplings Chinesisch <a href="https://maps.app.goo.gl/jJD7HJLTorXga9ub9?g_st=com.google.maps.preview.copy" target="_blank" class="arrow">🔗</a></li>
-        <li data-restaurant="Restaurant E" data-link="https://maps.app.goo.gl/oXeiMs2gD4HHxwjd6?">★ Windburger CHB <a href="https://maps.app.goo.gl/oXeiMs2gD4HHxwjd6?g_st=com.google.maps.preview.copy" target="_blank" class="arrow">🔗</a></li>
-        <li data-restaurant="Restaurant F" data-link="https://maps.app.goo.gl/kqsEWuLU8iwp3q6cA?g_st=com.google.maps.preview.copy">☆ Dolores Wittenbergplatz <a href="https://maps.app.goo.gl/kqsEWuLU8iwp3q6cA?g_st=com.google.maps.preview.copy" target="_blank" class="arrow">🔗</a></li>
-        <li data-restaurant="Restaurant G" data-link="https://maps.app.goo.gl/HEGGnmJWgdNrgttH7?g_st=com.google.maps.preview.copy">★ Knödelwirtschaft Süd <a href="https://maps.app.goo.gl/HEGGnmJWgdNrgttH7?g_st=com.google.maps.preview.copy" target="_blank" class="arrow">🔗</a></li>
+        <li data-restaurant="Sumak" data-link="https://maps.app.goo.gl/uGSAPfP4nyox7PtZ6?g_st=com.google.maps.preview.copy">★ Sumak Schlesisches Tor<a href="https://maps.app.goo.gl/uGSAPfP4nyox7PtZ6?g_st=com.google.maps.preview.copy" target="_blank" class="arrow">🔗</a></li>
+        <li data-restaurant="Quattro Fratelli" data-link="https://maps.app.goo.gl/kVLHZf8PaCwNEGB59?g_st=com.google.maps.preview.copy">☆ Italienisches Restaurant Quattro Fratelli<a href="https://maps.app.goo.gl/kVLHZf8PaCwNEGB59?g_st=com.google.maps.preview.copy" target="_blank" class="arrow">🔗</a></li>
+        <li data-restaurant="bertie" data-link="https://maps.app.goo.gl/c47YKfWz76872ZhR9?g_st=com.google.maps.preview.copy">★ bertie American fine cuisine <a href="https://maps.app.goo.gl/c47YKfWz76872ZhR9" target="_blank" class="arrow">🔗</a></li>
+        <li data-restaurant="Wok Show" data-link="https://maps.app.goo.gl/jJD7HJLTorXga9ub9?g_st=com.google.maps.preview.copy">☆ Wok Show Dumplings Chinesisch <a href="https://maps.app.goo.gl/jJD7HJLTorXga9ub9?g_st=com.google.maps.preview.copy" target="_blank" class="arrow">🔗</a></li>
+        <li data-restaurant="Windburger" data-link="https://maps.app.goo.gl/oXeiMs2gD4HHxwjd6?">★ Windburger CHB <a href="https://maps.app.goo.gl/oXeiMs2gD4HHxwjd6?g_st=com.google.maps.preview.copy" target="_blank" class="arrow">🔗</a></li>
+        <li data-restaurant="Dolores" data-link="https://maps.app.goo.gl/kqsEWuLU8iwp3q6cA?g_st=com.google.maps.preview.copy">☆ Dolores Wittenbergplatz <a href="https://maps.app.goo.gl/kqsEWuLU8iwp3q6cA?g_st=com.google.maps.preview.copy" target="_blank" class="arrow">🔗</a></li>
+        <li data-restaurant="Knödelwirtschaft" data-link="https://maps.app.goo.gl/HEGGnmJWgdNrgttH7?g_st=com.google.maps.preview.copy">★ Knödelwirtschaft Süd <a href="https://maps.app.goo.gl/HEGGnmJWgdNrgttH7?g_st=com.google.maps.preview.copy" target="_blank" class="arrow">🔗</a></li>
       </ul>
     </div>
 
@@ -167,7 +167,7 @@ submitButton.addEventListener("click", () => {
     const messageText = `Hey! Ich habe unseren Termin um ${selectedTime} im ${selectedRestaurant} bestätigt. Hier ist der Link: ${selectedLink} – Freu mich auf dich! ♥`;
     const iMessageLink = `sms:+4915737365084&body=${encodeURIComponent(messageText)}`;
 
-    imessageLinkContainer.innerHTML = `<a href="${iMessageLink}" style="display: inline-block; color: white; text-decoration: underline;">✅ iMessage senden</a>`;
+    imessageLinkContainer.innerHTML = `<a href="${iMessageLink}" style="display: inline-block; color: white; text-decoration: underline;">✅ klick hier um mir die iMessage zu senden</a>`;
   }
 });
 
