@@ -91,7 +91,7 @@ overlay.innerHTML = `
   <div id="video-overlay" class="overlay-content">
     <img id="overlay-gif" src="https://raw.githubusercontent.com/moritzgauss/wanttobemyvalentine/refs/heads/main/8CEF8A54-C3B2-42AC-BF10-988D5CC7EE88.gif" alt="GIF">
     <p>Warte kurz, das wollte ich dir noch sagen 🎶🎵🔊💭♥️💔!</p>
-    <button id="close-overlay" class="close-overlay">✖ Schließen</button>
+    <button id="close-overlay" class="close-overlay" style="display: none;">✖ Schließen</button>
     <audio id="overlay-audio" src="https://raw.githubusercontent.com/moritzgauss/wanttobemyvalentine/refs/heads/main/wieso-tust-du-mir-weh.mp3"></audio>
   </div>
 `;
@@ -131,8 +131,18 @@ restaurantList.addEventListener("click", (event) => {
     selectedRestaurant = target.getAttribute("data-restaurant");
     selectedLink = target.getAttribute("data-link");
     checkReady();
+  }
+});
 
-    // Overlay sichtbar machen
+// Event-Listener für den Submit-Button -> Öffnet das Overlay
+submitButton.addEventListener("click", () => {
+  if (selectedTime && selectedRestaurant && selectedLink) {
+    const messageText = `Hey bubi! Ich will am v-Day mit dir um ${selectedTime} ins ${selectedRestaurant} . Hier ist der Link: ${selectedLink} – Bitte komm mit! ♥ deine Chiari 🐣`;
+    const iMessageLink = `sms:+4915737365084&body=${encodeURIComponent(messageText)}`;
+
+    imessageLinkContainer.innerHTML = `<a href="${iMessageLink}" style="display: inline-block; color: white; text-decoration: underline;">✅ klick hier um mir die iMessage zu senden</a>`;
+
+    // Overlay einblenden
     overlay.style.display = "flex"; 
     
     // Audio abspielen
@@ -158,16 +168,6 @@ overlay.addEventListener("click", (event) => {
     overlay.style.display = "none";
     overlayAudio.pause();
     overlayAudio.currentTime = 0;
-  }
-});
-
-// Event-Listener für den "iMessage senden"-Button
-submitButton.addEventListener("click", () => {
-  if (selectedTime && selectedRestaurant && selectedLink) {
-    const messageText = `Hey! Ich habe unseren Termin um ${selectedTime} im ${selectedRestaurant} bestätigt. Hier ist der Link: ${selectedLink} – Freu mich auf dich! ♥`;
-    const iMessageLink = `sms:+4915737365084&body=${encodeURIComponent(messageText)}`;
-
-    imessageLinkContainer.innerHTML = `<a href="${iMessageLink}" style="display: inline-block; color: white; text-decoration: underline;">✅ klick hier um mir die iMessage zu senden</a>`;
   }
 });
 
