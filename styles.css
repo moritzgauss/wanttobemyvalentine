@@ -9,13 +9,6 @@ body {
   text-align: center;
   background: #ff9a9e;
 }
-.captcha {
-  max-width: 90%;
-  width: 600px;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
 
 .captcha-images {
   display: flex;
