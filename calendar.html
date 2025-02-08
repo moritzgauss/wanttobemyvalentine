@@ -75,29 +75,29 @@ color: black;
     <button id="submit">📩 Sende mir eine iMessage</button>
     <p id="imessage-link"></p>
     
-<p>Und am nächsten Tag geht es zu <a href="https://maps.app.goo.gl/uGSAPfP4nyox7PtZ6?g_st=com.google.maps.preview.copy" target="_blank">Frühstück 3000</a> am Nollendorfplatz (ich habe noch einen Gutschein).</p>
+<p>Und am nächsten Tag geht es zu <a href="https://maps.app.goo.gl/7ZStbrBBn19sXvLi7?g_st=com.google.maps.preview.copy" target="_blank">Frühstück 3000</a> am Nollendorfplatz (ich habe noch einen Gutschein).</p>
   </div>
   
 
-  <script>
 <script>
 const timeInput = document.getElementById("time");
 const restaurantList = document.getElementById("restaurant-list");
 const submitButton = document.getElementById("submit");
 const imessageLinkContainer = document.getElementById("imessage-link");
 
-// Overlay-Elemente erstellen
+// Overlay-Elemente
 const overlay = document.createElement("div");
 overlay.classList.add("overlay");
+overlay.style.display = "none"; // Anfangs versteckt
 overlay.innerHTML = `
 <div id="video-overlay" class="overlay">
   <video id="overlay-video" autoplay muted playsinline>
-    <source src="https://raw.githubusercontent.com/moritzgauss/wanttobemyvalentine/refs/heads/main/Video_1.mp4" type="video/mp4">
+    <source src="https://raw.githubusercontent.com/moritzgauss/wanttobemyvalentine/main/704427682f42431b9af5d7607044682e.mp4" type="video/mp4">
     Dein Browser unterstützt kein Video.
   </video>
   <p>Warte kurz, das wollte ich dir noch zeigen!</p>
   <button id="close-overlay" class="close-overlay" style="display: none;">✖ Schließen</button>
-  <audio id="overlay-audio" src="https://raw.githubusercontent.com/moritzgauss/wanttobemyvalentine/refs/heads/main/wieso-tust-du-mir-weh.mp3"></audio>
+  <audio id="overlay-audio" src="https://raw.githubusercontent.com/moritzgauss/wanttobemyvalentine/main/wieso-tust-du-mir-weh.mp3"></audio>
 </div>
 `;
 document.body.appendChild(overlay);
@@ -127,7 +127,7 @@ timeInput.addEventListener("change", () => {
   checkReady();
 });
 
-// Event-Listener für die Restaurant-Auswahl
+// Event-Listener für Restaurant-Auswahl
 restaurantList.addEventListener("click", (event) => {
   const target = event.target.closest("li");
   if (target) {
@@ -138,12 +138,12 @@ restaurantList.addEventListener("click", (event) => {
     selectedLink = target.getAttribute("data-link");
     checkReady();
 
-    // Overlay anzeigen
-    overlay.classList.add("show");
+    // Overlay sichtbar machen
+    overlay.style.display = "flex"; // Sicherstellen, dass es angezeigt wird
     
-    // Audio und Video abspielen
-    overlayAudio.play().catch(error => console.log("Audio-Autoplay wurde blockiert."));
-    overlayVideo.play().catch(error => console.log("Video-Autoplay wurde blockiert, erfordert Nutzerinteraktion."));
+    // Video & Audio abspielen
+    overlayVideo.play().catch(error => console.log("Video-Autoplay blockiert."));
+    overlayAudio.play().catch(error => console.log("Audio-Autoplay blockiert."));
 
     // Schließen-Button erst nach 15 Sekunden anzeigen
     setTimeout(() => {
@@ -152,19 +152,19 @@ restaurantList.addEventListener("click", (event) => {
   }
 });
 
-// Event-Listener zum Schließen des Overlays
+// Event-Listener für das Schließen des Overlays
 closeOverlay.addEventListener("click", () => {
-  overlay.classList.remove("show");
+  overlay.style.display = "none";
   overlayAudio.pause();
   overlayAudio.currentTime = 0;
   overlayVideo.pause();
   overlayVideo.currentTime = 0;
 });
 
-// Event-Listener für Klick außerhalb des Overlays
+// Klick außerhalb des Overlays schließt es ebenfalls (nach 15 Sekunden)
 overlay.addEventListener("click", (event) => {
   if (event.target === overlay && closeOverlay.style.display === "block") {
-    overlay.classList.remove("show");
+    overlay.style.display = "none";
     overlayAudio.pause();
     overlayAudio.currentTime = 0;
     overlayVideo.pause();
@@ -185,6 +185,5 @@ submitButton.addEventListener("click", () => {
 // Standardmäßig Button deaktivieren
 submitButton.disabled = true;
 </script>
-  </script>
 </body>
 </html>
